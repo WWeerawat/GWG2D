@@ -7,62 +7,57 @@ using UnityEngine.Serialization;
 public class Level : MonoBehaviour
 {
     [Header("Level Utils")]
-    [SerializeField] private TMP_Text stageText;
     [SerializeField] private TMP_Text lifeText;
-    [SerializeField] private TMP_Text resultText;
+    [SerializeField] private TMP_Text statusText;
 
 
     [Header("Level Detail")]
-    [SerializeField] private List<GameObject> questions;
-    [SerializeField] private int stageNum;
+    [SerializeField] private GameObject[] questions;
+    [SerializeField] private Dialogue dialogue;
     [SerializeField] private int lifeNum;
 
-    int _currentStage;
+    int _currentQuestion;
     int _currentLife;
 
     // Start is called before the first frame update
     void Start()
     {
-        _currentStage = 1;
+        _currentQuestion = 1;
         _currentLife = lifeNum;
-        stageText.text = "stage: " + _currentStage + "/" + stageNum;
-        lifeText.text = "life: " + _currentLife + "/" + stageNum;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-    public void OnClick(string answer)
-    {
-        Debug.Log("CLICK");
-        if (answer == "Left")
-        {
-            updateStatus(true);
-        }
-        else
-        {
-            updateStatus(false);
-        }
         updateText();
+
+    }
+
+    private void Update()
+    {
+
+    }
+
+    public void OnClick(bool isTrue)
+    {
+        updateStatus(isTrue);
+        updateText();
+    }
+
+    public void TriggerDialogueBtn()
+    {
+
+        DialogueManager.Instance.StartDialogue(dialogue);
     }
 
     void updateStatus(bool isTrue)
     {
         if (isTrue)
         {
-            _currentStage++;
-            resultText.text = checkStatus() < 0 ? "PLAYING" : "WIN!!";
+            _currentQuestion++;
             return;
         }
         _currentLife--;
-        resultText.text = checkStatus() < 0 ? "PLAYING" : "LOSE!!";
     }
 
     int checkStatus()
     {
-        if (_currentStage > stageNum)
+        if (_currentQuestion > questions.Length)
         {
             return 1;
         }
@@ -76,7 +71,8 @@ public class Level : MonoBehaviour
 
     void updateText()
     {
-        stageText.text = "stage: " + _currentStage + "/" + stageNum;
-        lifeText.text = "life: " + _currentLife + "/" + stageNum;
+        string status = checkStatus() > 0 ? "WIN" : checkStatus() == 0 ? "LOSE" : "SELECTION";
+        statusText.text = "status: " + status;
+        lifeText.text = "life: " + _currentLife + "/" + lifeNum;
     }
 }
