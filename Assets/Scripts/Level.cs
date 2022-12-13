@@ -16,7 +16,7 @@ public class Level : MonoBehaviour
     [SerializeField] private Dialogue dialogue;
     [SerializeField] private int lifeNum;
 
-    [SerializeField] private Queue<GameObject> questionQueue;
+    private Queue<GameObject> questionQueue;
     GameObject _currentQuestion;
     int _currentLife;
 

@@ -345,6 +345,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogueSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 6887141979889254339, guid: cfdf8b5093ed04a18acbb11b1f5d03dc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfdf8b5093ed04a18acbb11b1f5d03dc, type: 3}
 --- !u!1 &1869537267
@@ -429,7 +433,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3576845780513694909, guid: daa57d6a265a54a48b1f8cbb3f07c678, type: 3}
       propertyPath: m_Name
-      value: LevelSample
+      value: Level1
       objectReference: {fileID: 0}
     - target: {fileID: 3576845780513694910, guid: daa57d6a265a54a48b1f8cbb3f07c678, type: 3}
       propertyPath: m_RootOrder

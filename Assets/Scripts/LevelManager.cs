@@ -37,10 +37,10 @@ public class LevelManager : MonoBehaviour
         DialogueManager.Instance.EndDialogue();
     }
 
-    // public void SelectLevel(string levelName)
-    // {
-    //     GameObject level = levels.FirstOrDefault(level => level.name == levelName);
-    //     Instantiate(level, instantiateParent.transform);
-    //     currentLevel = level!.GetComponent<Level>();
-    // }
+    public void SelectLevel(string levelName)
+    {
+        GameObject level = levels.FirstOrDefault(level => level.name == levelName);
+        Instantiate(level, instantiateParent.transform);
+        currentLevel = level!.GetComponent<Level>();
+    }
 }
