@@ -16,7 +16,7 @@ public class DialogueManager : MonoBehaviour
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
-            return;//Avoid doing anything else
+            return; //Avoid doing anything else
         }
         if (_instance == null)
         {
@@ -26,6 +26,7 @@ public class DialogueManager : MonoBehaviour
     }
 
     [Header("Dialogue Utils")]
+    public GameObject dialogueBtn;
     public TMP_Text dialogueText;
 
     [Header("Dialogues ")]
@@ -39,6 +40,7 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(Dialogue dialogue)
     {
         Debug.Log("Starting conversation");
+        dialogueBtn.SetActive(true);
 
         sentences.Clear();
 
@@ -46,12 +48,17 @@ public class DialogueManager : MonoBehaviour
         {
             sentences.Enqueue(sentence);
         }
-
-        DisplayNextSentence();
+    }
+    public void ContinueDialogue()
+    {
+        Debug.Log("Starting conversation");
+        dialogueBtn.SetActive(true);
     }
 
     public void DisplayNextSentence()
     {
+        dialogueText.transform.parent.gameObject.SetActive(true);
+
         if (sentences.Count == 0)
         {
             EndDialogue();
@@ -73,8 +80,10 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void EndDialogue()
+    public void EndDialogue()
     {
         Debug.Log("End of conversation");
+        dialogueBtn.SetActive(false);
+        dialogueText.transform.parent.gameObject.SetActive(false);
     }
 }

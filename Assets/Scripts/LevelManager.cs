@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -13,7 +14,7 @@ public class LevelManager : MonoBehaviour
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
-            return;//Avoid doing anything else
+            return; //Avoid doing anything else
         }
         if (_instance == null)
         {
@@ -23,9 +24,23 @@ public class LevelManager : MonoBehaviour
     }
 
 
+    [Header("Utils")]
+    [SerializeField] private GameObject instantiateParent;
     [Header("Levels")]
-    [SerializeField] private Level[] levels;
+    [SerializeField] private GameObject[] levels;
+    [SerializeField] private Level currentLevel;
 
+    // Level currentLevel;
+    public void GoNextQuestion()
+    {
+        currentLevel.GoNextQuestion();
+        DialogueManager.Instance.EndDialogue();
+    }
 
-
+    // public void SelectLevel(string levelName)
+    // {
+    //     GameObject level = levels.FirstOrDefault(level => level.name == levelName);
+    //     Instantiate(level, instantiateParent.transform);
+    //     currentLevel = level!.GetComponent<Level>();
+    // }
 }

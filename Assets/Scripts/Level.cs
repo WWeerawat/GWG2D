@@ -16,21 +16,22 @@ public class Level : MonoBehaviour
     [SerializeField] private Dialogue dialogue;
     [SerializeField] private int lifeNum;
 
-    int _currentQuestion;
+    [SerializeField] private Queue<GameObject> questionQueue;
+    GameObject _currentQuestion;
     int _currentLife;
 
     // Start is called before the first frame update
     void Start()
     {
-        _currentQuestion = 1;
+        questionQueue = new Queue<GameObject>(questions);
+        _currentQuestion = questionQueue.Dequeue();
+        _currentQuestion.SetActive(true);
         _currentLife = lifeNum;
         updateText();
-
     }
 
     private void Update()
     {
-
     }
 
     public void OnClick(bool isTrue)
@@ -41,15 +42,17 @@ public class Level : MonoBehaviour
 
     public void TriggerDialogueBtn()
     {
-
         DialogueManager.Instance.StartDialogue(dialogue);
+    }
+    public void TriggerContinueDialogueBtn()
+    {
+        DialogueManager.Instance.ContinueDialogue();
     }
 
     void updateStatus(bool isTrue)
     {
         if (isTrue)
         {
-            _currentQuestion++;
             return;
         }
         _currentLife--;
@@ -57,10 +60,10 @@ public class Level : MonoBehaviour
 
     int checkStatus()
     {
-        if (_currentQuestion > questions.Length)
-        {
-            return 1;
-        }
+        // if (_currentQuestion > dialogue.sentences.Length)
+        // {
+        //     return 1;
+        // }
 
         if (_currentLife == 0)
         {
@@ -74,5 +77,12 @@ public class Level : MonoBehaviour
         string status = checkStatus() > 0 ? "WIN" : checkStatus() == 0 ? "LOSE" : "SELECTION";
         statusText.text = "status: " + status;
         lifeText.text = "life: " + _currentLife + "/" + lifeNum;
+    }
+
+    public void GoNextQuestion()
+    {
+        _currentQuestion.SetActive(false);
+        _currentQuestion = questionQueue.Dequeue();
+        _currentQuestion.SetActive(true);
     }
 }
