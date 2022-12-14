@@ -18,7 +18,8 @@ public class Level : MonoBehaviour
 
     private Queue<GameObject> questionQueue;
     GameObject _currentQuestion;
-    int _currentLife;
+    int _currentLife = 99;
+    bool isWin;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +29,7 @@ public class Level : MonoBehaviour
         _currentQuestion.SetActive(true);
         _currentLife = lifeNum;
         updateText();
+        isWin=false;
     }
 
     private void Update()
@@ -58,12 +60,11 @@ public class Level : MonoBehaviour
         _currentLife--;
     }
 
-    int checkStatus()
+    public int checkStatus()
     {
-        // if (_currentQuestion > dialogue.sentences.Length)
-        // {
-        //     return 1;
-        // }
+        if(isWin){
+            return 1;
+        }
 
         if (_currentLife == 0)
         {
@@ -81,6 +82,10 @@ public class Level : MonoBehaviour
 
     public void GoNextQuestion()
     {
+        if(questionQueue.Count==0){
+            isWin=true;
+            return;
+        }
         _currentQuestion.SetActive(false);
         _currentQuestion = questionQueue.Dequeue();
         _currentQuestion.SetActive(true);

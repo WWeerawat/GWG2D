@@ -27,11 +27,29 @@ public class LevelManager : MonoBehaviour
     [Header("Utils")]
     [SerializeField] private GameObject instantiateParent;
     [SerializeField] private GameObject LevelSelection;
+    
     [Header("Levels")]
     [SerializeField] private GameObject[] levels;
-    [SerializeField] private Level currentLevel;
+    // [SerializeField] private Level currentLevel;
 
-    // Level currentLevel;
+    Level currentLevel;
+    private void Start() {
+        
+    }
+
+    private void Update() {
+        if (currentLevel != null) {
+            if (currentLevel.checkStatus()==0)
+        {
+            GameManager.Instance.loseUI.SetActive(true);
+        }
+            else if(currentLevel.checkStatus()==1)
+        {
+            GameManager.Instance.winUI.SetActive(true);
+        }
+        }
+        
+    }
     public void GoNextQuestion()
     {
         currentLevel.GoNextQuestion();
@@ -48,7 +66,13 @@ public class LevelManager : MonoBehaviour
         }
         GameObject levelObj = Instantiate(level, instantiateParent.transform);
         levelObj.SetActive(true);
-        currentLevel = level!.GetComponent<Level>();
-        DestroyImmediate(LevelSelection);
+        currentLevel = levelObj.GetComponent<Level>();
+        LevelSelection.SetActive(false);
+    }
+    public void KillLevel(){
+        
+        if (currentLevel != null){
+            DestroyImmediate(currentLevel.transform.gameObject);
+        }
     }
 }
