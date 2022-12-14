@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class LevelSelectionTrigger : MonoBehaviour
 {
-
     private bool playerInRange;
+    string colliderName;
 
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -18,9 +17,9 @@ public class LevelSelectionTrigger : MonoBehaviour
     {
         if (playerInRange)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha2))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
-                Debug.Log("HIT");
+                LevelManager.Instance.SelectLevel(name);
             }
         }
     }

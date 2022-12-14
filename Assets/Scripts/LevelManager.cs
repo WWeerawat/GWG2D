@@ -26,6 +26,7 @@ public class LevelManager : MonoBehaviour
 
     [Header("Utils")]
     [SerializeField] private GameObject instantiateParent;
+    [SerializeField] private GameObject LevelSelection;
     [Header("Levels")]
     [SerializeField] private GameObject[] levels;
     [SerializeField] private Level currentLevel;
@@ -40,7 +41,14 @@ public class LevelManager : MonoBehaviour
     public void SelectLevel(string levelName)
     {
         GameObject level = levels.FirstOrDefault(level => level.name == levelName);
-        Instantiate(level, instantiateParent.transform);
+        if (level == null)
+        {
+            Debug.LogError("Level not found");
+            return;
+        }
+        GameObject levelObj = Instantiate(level, instantiateParent.transform);
+        levelObj.SetActive(true);
         currentLevel = level!.GetComponent<Level>();
+        DestroyImmediate(LevelSelection);
     }
 }
