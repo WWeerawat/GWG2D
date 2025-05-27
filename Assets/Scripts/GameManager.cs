@@ -23,10 +23,12 @@ public class GameManager : MonoBehaviour
     }
     [Header("Utils")]
     public GameObject mainMenuUI;
+    public GameObject howToPlayUI;
     public GameObject loseUI;
     public GameObject winUI;
     public GameObject levelSelection;
-
+    public int winCount;
+    public GameObject endGameUI;
 
     // Start is called before the first frame update
     void Start()
@@ -37,12 +39,16 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (winCount==3)
+        {
+            endGameUI.SetActive(true);
+        }
     }
     public void GoToMainMenu() {
         mainMenuUI.SetActive(true);
         loseUI.SetActive(false);
         winUI.SetActive(false);
+        howToPlayUI.SetActive(false);
         LevelManager.Instance.KillLevel();    
     }
 
@@ -52,6 +58,14 @@ public class GameManager : MonoBehaviour
         loseUI.SetActive(false);
         winUI.SetActive(false);
         LevelManager.Instance.KillLevel();
+    }
+
+    public void GoToHowToPlay() {
+        howToPlayUI.SetActive(true);
+        mainMenuUI.SetActive(false);
+        loseUI.SetActive(false);
+        winUI.SetActive(false);
+        LevelManager.Instance.KillLevel();    
     }
 
     public void QuitGame()

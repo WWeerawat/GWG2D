@@ -45,7 +45,10 @@ public class LevelManager : MonoBehaviour
         }
             else if(currentLevel.checkStatus()==1)
         {
-            GameManager.Instance.winUI.SetActive(true);
+            if (GameManager.Instance.winCount<3)
+            {
+                GameManager.Instance.winUI.SetActive(true);
+            }
         }
         }
         
@@ -53,7 +56,6 @@ public class LevelManager : MonoBehaviour
     public void GoNextQuestion()
     {
         currentLevel.GoNextQuestion();
-        DialogueManager.Instance.EndDialogue();
     }
 
     public void SelectLevel(string levelName)

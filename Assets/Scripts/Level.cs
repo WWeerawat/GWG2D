@@ -76,13 +76,14 @@ public class Level : MonoBehaviour
     void updateText()
     {
         string status = checkStatus() > 0 ? "WIN" : checkStatus() == 0 ? "LOSE" : "SELECTION";
-        statusText.text = "status: " + status;
-        lifeText.text = "life: " + _currentLife + "/" + lifeNum;
+        //statusText.text = "status: " + status;
+        lifeText.text = " " + _currentLife + "/" + lifeNum;
     }
 
     public void GoNextQuestion()
     {
         if(questionQueue.Count==0){
+            GameManager.Instance.winCount++;
             isWin=true;
             return;
         }
