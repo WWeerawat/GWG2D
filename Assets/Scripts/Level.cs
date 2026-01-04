@@ -28,8 +28,8 @@ public class Level : MonoBehaviour
         _currentQuestion = questionQueue.Dequeue();
         _currentQuestion.SetActive(true);
         _currentLife = lifeNum;
-        updateText();
-        isWin=false;
+        UpdateText();
+        isWin = false;
     }
 
     private void Update()
@@ -38,8 +38,8 @@ public class Level : MonoBehaviour
 
     public void OnClick(bool isTrue)
     {
-        updateStatus(isTrue);
-        updateText();
+        UpdateStatus(isTrue);
+        UpdateText();
     }
 
     public void TriggerDialogueBtn()
@@ -51,18 +51,20 @@ public class Level : MonoBehaviour
         DialogueManager.Instance.ContinueDialogue();
     }
 
-    void updateStatus(bool isTrue)
+    public void UpdateStatus(bool isTrue)
     {
         if (isTrue)
         {
             return;
         }
+
         _currentLife--;
     }
 
-    public int checkStatus()
+    public int CheckStatus()
     {
-        if(isWin){
+        if (isWin)
+        {
             return 1;
         }
 
@@ -70,23 +72,24 @@ public class Level : MonoBehaviour
         {
             return 0;
         }
+
         return -1;
     }
 
-    void updateText()
+    public void UpdateText()
     {
-        string status = checkStatus() > 0 ? "WIN" : checkStatus() == 0 ? "LOSE" : "SELECTION";
-        //statusText.text = "status: " + status;
         lifeText.text = " " + _currentLife + "/" + lifeNum;
     }
 
     public void GoNextQuestion()
     {
-        if(questionQueue.Count==0){
-            GameManager.Instance.winCount++;
-            isWin=true;
+        if (questionQueue.Count == 0)
+        {
+            LevelManager.Instance.RegisterLevelClear(gameObject.name);
+            isWin = true;
             return;
         }
+
         _currentQuestion.SetActive(false);
         _currentQuestion = questionQueue.Dequeue();
         _currentQuestion.SetActive(true);

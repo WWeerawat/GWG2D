@@ -20,7 +20,6 @@ public class LevelSelectionTrigger : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 LevelManager.Instance.SelectLevel(name);
-           
             }
         }
     }

@@ -19,7 +19,6 @@ public class LevelManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
-            DontDestroyOnLoad(this.gameObject);
         }
     }
 
@@ -27,31 +26,31 @@ public class LevelManager : MonoBehaviour
     [Header("Utils")]
     [SerializeField] private GameObject instantiateParent;
     [SerializeField] private GameObject LevelSelection;
-    
+
     [Header("Levels")]
     [SerializeField] private GameObject[] levels;
-    // [SerializeField] private Level currentLevel;
-
+    private HashSet<string> clearedLevels = new HashSet<string>();
     Level currentLevel;
-    private void Start() {
-        
+
+    private void Start()
+    {
+
     }
 
-    private void Update() {
-        if (currentLevel != null) {
-            if (currentLevel.checkStatus()==0)
+    private void Update()
+    {
+        if (currentLevel != null)
         {
-            GameManager.Instance.loseUI.SetActive(true);
-        }
-            else if(currentLevel.checkStatus()==1)
-        {
-            if (GameManager.Instance.winCount<3)
+            if (currentLevel.CheckStatus() == 0)
+            {
+                GameManager.Instance.loseUI.SetActive(true);
+            }
+            else if (currentLevel.CheckStatus() == 1)
             {
                 GameManager.Instance.winUI.SetActive(true);
             }
         }
-        }
-        
+
     }
     public void GoNextQuestion()
     {
@@ -71,10 +70,23 @@ public class LevelManager : MonoBehaviour
         currentLevel = levelObj.GetComponent<Level>();
         LevelSelection.SetActive(false);
     }
-    public void KillLevel(){
-        
-        if (currentLevel != null){
+
+    public void KillLevel()
+    {
+        if (currentLevel != null)
+        {
             DestroyImmediate(currentLevel.transform.gameObject);
         }
     }
+
+    public void RegisterLevelClear(string levelName)
+    {
+        clearedLevels.Add(levelName);
+
+        if (clearedLevels.Count >= levels.Length)
+        {
+            GameManager.Instance.ShowEndGameUI();
+        }
+    }
+
 }
