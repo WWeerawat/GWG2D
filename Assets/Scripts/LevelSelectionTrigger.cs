@@ -6,7 +6,7 @@ public class LevelSelectionTrigger : MonoBehaviour
 {
     private bool playerInRange;
     string colliderName;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -17,9 +17,10 @@ public class LevelSelectionTrigger : MonoBehaviour
     {
         if (playerInRange)
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 LevelManager.Instance.SelectLevel(name);
+           
             }
         }
     }
