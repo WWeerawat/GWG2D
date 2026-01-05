@@ -3639,7 +3639,7 @@ VideoPlayer:
   - {fileID: 0}
   m_DirectAudioVolumes:
   - 0.3
-  m_Url: https://drive.google.com/uc?export=download&id=1fEAbCv_rYRWlTmiuIVD8WhTEX7JbxgtN
+  m_Url: https://wweerawat.github.io/GWG2D/Assets/Animation/EndingStory.mp4
   m_EnabledAudioTracks: 01
   m_DirectAudioMutes: 00
   m_ControlledAudioTrackCount: 1
